@@ -1,8 +1,8 @@
 pipeline {
 
   environment {
-    registry = "sektech1484/flask"
-    registry_mysql = "sektech1484/mysql"
+    registry = "sektech1484/flask1"
+    registry_mysql = "sektech1484/mysql1"
     registryCredential="docker"
     dockerImage = ""
   }
@@ -43,8 +43,8 @@ pipeline {
    }
    stage('Build mysql image') {
      steps{
-       sh 'docker build -t "sektech1484/mysql:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
-        sh 'docker push "sektech1484/mysql:$BUILD_NUMBER"'
+       sh 'docker build -t "sektech1484/mysql1:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
+        sh 'docker push "sektech1484/mysql1:$BUILD_NUMBER"'
         }
       }
     stage('Deploy App') {
