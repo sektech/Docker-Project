@@ -41,12 +41,23 @@ pipeline {
           }
       }
    }
-   stage('Build mysql image') {
-     steps{
-       sh 'docker build -t "sektech1484/mysql1:$BUILD_NUMBER"  "$WORKSPACE"/mysql'
-        sh 'docker push "sektech1484/mysql1:$BUILD_NUMBER"'
+  stage('Build mysql image') {
+      steps{
+        script {
+          dockerImage = docker.build registry_mysql + ":$BUILD_NUMBER"
         }
       }
+    }
+
+    stage('Push mysql Image') {
+      steps{
+        script {
+          docker.withRegistry( "",registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
     stage('Deploy App') {
       steps {
         script {
